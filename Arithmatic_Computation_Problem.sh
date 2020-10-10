@@ -3,7 +3,9 @@
 echo "Arithmatic Computation Problem"
 
 declare -A storeResult
-storeResult=(["result1"]=0 ["result2"]=0 ["result3"]=0 ["result4"]=0 )
+declare -A arrayElements
+
+storeResult=(["1"]=0 ["2"]=0 ["3"]=0 ["4"]=0 )
 
 #UC_1_Take three inputs from user
 function getInputs()
@@ -52,8 +54,16 @@ function fourthEquation()
 	fourthEquationResult=$(( $A % $B +$C ))
 	storeResult[result4]=$fourthEquationResult
 }
-getInputs
 
+function readValuesToArray()
+{
+	for ((index=0;index<${#storeResult[@]}; index++ ))
+	do
+		arrayElements[index]=${storeResult[$index]}
+	done
+}
+getInputs
+readValuesToArray
 
 
 
