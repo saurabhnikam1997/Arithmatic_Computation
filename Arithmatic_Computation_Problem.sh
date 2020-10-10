@@ -17,3 +17,10 @@ function firstEquation()
 	firstEquationResult=$(( $A + $B * $C ))
 }
 firstEquation
+
+function secondEquation()
+{
+	input
+	secondEquationResult=$(( $A * $B + $C ))
+}
+secondEquation
