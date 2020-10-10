@@ -24,3 +24,20 @@ function secondEquation()
 	secondEquationResult=$(( $A * $B + $C ))
 }
 secondEquation
+
+function thirdEquation()
+{
+	input
+	thirdEquationResult=`expr "scale=3; $C +$A / $B "|bc`
+}
+thirdEquation
+
+
+
+
+
+
+
+
+
+
