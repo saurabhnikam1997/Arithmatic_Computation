@@ -3,7 +3,7 @@
 echo "Arithmatic Computation Problem"
 
 declare -A storeResult
-declare -A arrayElements
+declare -a arrayElements
 
 storeResult=(["1"]=0 ["2"]=0 ["3"]=0 ["4"]=0 )
 
@@ -14,54 +14,57 @@ function getInputs()
 	read -p "Enter Second Number" B
 	read -p "Enter Third Number" C
 
-firstEquation
-secondEquation
-thirdEquation
-fourthEquation
+findResult
 }
 
 
-function firstEquation()
+function findResult()
 {
 	# Expression a+b*c
-	firstEquationResult=$(( $A + $B * $C ))
-	storeResult[result1]=$firstEquationResult
-}
+	firstEquationResult=`expr "scale=2; $A + $B * $C " | bc -l`
+	storeResult[1]=$firstEquationResult
 
-#firstEquation
-
-function secondEquation()
-{
 	# Expression a*b+c
-	secondEquationResult=$(( $A * $B + $C ))
-	storeResult[result2]=$secondEquationResult
-}
-#secondEquation
+	secondEquationResult=`expr "scale=2; $A * $B + $C " | bc -l`
+	storeResult[2]=$secondEquationResult
 
-function thirdEquation()
-{
 	# Expression c+a/b
+	thirdEquationResult=`expr "scale=2; $C +$A / $B " | bc -l`
+	storeResult[3]=$thirdEquationResult
 
-	thirdEquationResult=`expr "scale=3; $C +$A / $B "|bc`
-	storeResult[result3]=$thirdEquationResult
-}
-#thirdEquation
-
-
-function fourthEquation()
-{
 	# Expression a%b+c
-	fourthEquationResult=$(( $A % $B +$C ))
-	storeResult[result4]=$fourthEquationResult
+	fourthEquationResult=`expr "scale=2; $C % $A + $B " | bc -l`
+	storeResult[4]=$fourthEquationResult
 }
 
 function readValuesToArray()
 {
-	for ((index=0;index<${#storeResult[@]}; index++ ))
+	for ((index=0;index<=${#storeResult[@]}; index++ ))
 	do
 		arrayElements[index]=${storeResult[$index]}
 	done
+	descendingSort
 }
+
+function descendingSort()
+{
+	temp=0
+	for ((i=0; i<${#arrayElements[@]}; i++ ))
+	do
+		for ((j=i+1; j<${#arrayElements[@]}; j++ ))
+		do
+			if [[ ${arrayElements[i]%.*} -lt ${arrayElements[j]%.*} ]]
+		  	then
+				temp=${arrayElements[i]}
+				arrayElements[i]=${arrayElements[j]}
+				arrayElements[j]=$temp
+			fi
+		done
+	done
+	echo Array In Descending Order..${arrayElements[@]}
+
+}
+
 getInputs
 readValuesToArray
 
