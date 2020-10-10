@@ -33,8 +33,12 @@ function thirdEquation()
 thirdEquation
 
 
-
-
+function fourthEquation()
+{
+	input
+	fourthEquationResult=$(( $A % $B +$C ))
+}
+fourthEquation
 
 
 
